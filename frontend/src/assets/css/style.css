@@ -1,0 +1,56 @@
+.table_cont .table thead{
+    font-weight: 400;
+}
+/* .table_cont .table{
+    font-weight: 200;
+} */
+.table_cont .table tbody tr td:last-child{
+    text-align: center;
+    color: #0e57d3;
+    cursor: pointer;
+}
+.add_form{
+    background-color: #f1f1f1;
+}
+.add_form .form-control{border-radius: 0;}
+.profile_cont .prof_pic{
+    border: 1px solid #e4e4e4;
+    height: 200px;
+}
+.prof_text_cont{
+   margin-bottom: 0.8em; 
+}
+.prof_heading{
+    font-size: 16px;
+    color: #605f5f;
+    font-weight: 300;
+}
+.prof_text{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+body > iframe[style*='2147483647']{
+    display: none;
+}
+
+.badge {
+    padding: 6px 10px 6px 10px;
+    border-radius: 20px;
+}
+
+.btn-close {
+    box-sizing: content-box;
+    width: 1em;
+    height: 1em;
+    padding: 0.25em;
+    color: #000;
+    background: transparent url("./../image/cross.svg") 50%/1em auto no-repeat;
+    border: 0;
+    border-radius: 0.375rem;
+    opacity: .5;
+}
+
+.bg-dark {
+    background: #2b3f66 !important;
+}
