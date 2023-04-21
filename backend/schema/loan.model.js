@@ -1,8 +1,9 @@
 const db = require('../utils/db');
+require('dotenv').config();
 const moment = require('moment-timezone');
 moment().tz("Asia/Calcutta").format();
 process.env.TZ = 'Asia/Calcutta';
-
+const BASE_URL = process.env.BASE_URL;
 
 const getEmpLoan = async (id) => {
     var conn = null
@@ -74,7 +75,7 @@ const viewLoansApplied = async (loanId) => {
     var conn = null
     try {
         conn = await db.connection();
-        const resp = await conn.query('SELECT t1.id AS loan_id, t1.emp_id, t2.name AS empname, t2.mobile, t2.department_id, t2.emp_type, t3.name AS dept_name, t3.designation, t1.amount AS loan_amount, t1.reason, CONCAT ("http://localhost:7060/uploads/loans/", t1.evidence_doc) evidence_doc, CONCAT ("http://localhost:7060/uploads/loans/", t1.loan_policy_doc) loan_policy_doc, t1.repayment_date, CONCAT ("http://localhost:7060/uploads/loans/", t1.repayment_doc) repayment_doc, t1.hr_status, t1.hr_note, t1.hr_actiondate, t1.ac_status, t1.ac_actiondate, t1.md_status, t1.md_actiondate, t1.apply_date, t1.apply_time FROM loans t1 JOIN employee t2 ON t1.emp_id = t2.id JOIN department t3 ON t2.department_id = t3.id WHERE t1.id = ?', [loanId]);
+        const resp = await conn.query(`SELECT t1.id AS loan_id, t1.emp_id, t2.name AS empname, t2.mobile, t2.department_id, t2.emp_type, t3.name AS dept_name, t3.designation, t1.amount AS loan_amount, t1.reason, CONCAT ("${BASE_URL}uploads/loans/", t1.evidence_doc) evidence_doc, CONCAT ("${BASE_URL}uploads/loans/", t1.loan_policy_doc) loan_policy_doc, t1.repayment_date, CONCAT ("${BASE_URL}uploads/loans/", t1.repayment_doc) repayment_doc, t1.hr_status, t1.hr_note, t1.hr_actiondate, t1.ac_status, t1.ac_actiondate, t1.md_status, t1.md_actiondate, t1.apply_date, t1.apply_time FROM loans t1 JOIN employee t2 ON t1.emp_id = t2.id JOIN department t3 ON t2.department_id = t3.id WHERE t1.id = ?`, [loanId]);
         conn.release();
         return resp[0]
     }

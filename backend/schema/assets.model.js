@@ -3,6 +3,7 @@ require('dotenv').config();
 const moment = require('moment-timezone');
 moment().tz("Asia/Calcutta").format();
 process.env.TZ = 'Asia/Calcutta';
+const BASE_URL = process.env.BASE_URL;
 
 //Creating new Asset by ADMIN
 const createNewAsset = async (productName, specification, categoryId, total, instock, empId) => {
@@ -404,8 +405,7 @@ const fetchAllIssuedAssets = async () => {
     var conn = null
     try {
         conn = await db.connection();
-        const resp = await conn.query('SELECT t1.id AS request_id, t1.asset_id, CONCAT ("http://localhost:7060/uploads/assets/", t1.request_form) request_form, t2.name AS asset_name, t2.specification FROM asset_request t1 JOIN asset t2 ON t1.asset_id = t2.id  WHERE t1.issue_status = ?', [1])
-        conn.release();
+        const resp = await conn.query(`SELECT t1.id AS request_id, t1.asset_id, CONCAT("${BASE_URL}uploads/assets/", t1.request_form) request_form, t2.name AS asset_name, t2.specification FROM asset_request t1 JOIN asset t2 ON t1.asset_id = t2.id  WHERE t1.issue_status = ?`, [1])       
         return resp[0]
     }
     catch (error) {

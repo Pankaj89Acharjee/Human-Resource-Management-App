@@ -10,7 +10,7 @@ const router = express.Router();
 router.use(express.json())
 const cors = require("cors");
 router.use(cors());
-router.use(express.static('uploads/')); //Making static for image usage
+router.use(express.static('uploads/prejoinee')); //Making static for image usage
 
 const whetherPrejoineeLogin = require('../middleware/whetherPrejoineeLogin');
 const PrejoineeModel = require('../schema/prejoinee.model');
@@ -48,90 +48,95 @@ const upload = multer({
 //For Viewing Prejoiner's Own Profile (Join Employee + Employee Profile Info + Bank Info)
 router.get('/prejoineeprofileview', whetherPrejoineeLogin, async (req, res) => {
     let email = req.prejoinee.email;
-    console.log("Prejoinee email is", email);
-    const fetchPrejoineeData = await PrejoineeModel.getPreJoineeProfile(email);
-    if (fetchPrejoineeData.statusCode === 0) {
-        console.log("Error in fetching Prejoiner profile details")
-        return res.status(500).json({ statusCode: 0, message: fetchPrejoineeData.message, error: fetchPrejoineeData.error })
-    } else if (fetchPrejoineeData.length === 0) {
-        return res.status(404).json({ statusCode: 0, message: "Data not found" })
-    } else {
-        var userData = fetchPrejoineeData[0]
-        console.log("user data", userData);
-        var output = {
-            profile: {
-                id: userData.id,
-                employeeid: userData.employeeid,
-                name: userData.name,
-                email: userData.email,
-                mobile: userData.mobile,
-                department_id: userData.department_id,
-                designation: userData.designation,
-                grade_id: userData.grade_id,
-                status: userData.status,
-                doj: userData.doj,
-                date: userData.data,
-                time: userData.time,
-                emp_type: userData.emp_type,
-                id_issued: userData.id_issued,
-                id_issued_date: userData.id_issued_date,
-            },
+    try {
+        const fetchPrejoineeData = await PrejoineeModel.getPreJoineeProfile(email);
+        if (fetchPrejoineeData.statusCode === 0) {
+            console.log("Error in fetching Prejoiner profile details")
+            return res.status(500).json({ statusCode: 0, message: fetchPrejoineeData.message, error: fetchPrejoineeData.error })
+        } else if (fetchPrejoineeData.length === 0 || fetchPrejoineeData[0] === undefined) {
+            return res.status(404).json({ statusCode: 0, message: "Data not found" })
+        } else {
+            var userData = fetchPrejoineeData[0]
+            console.log("user data", userData);
+            var output = {
+                profile: {
+                    id: userData.emp_id,
+                    employeeid: userData.employeeid,
+                    name: userData.name,
+                    email: userData.email,
+                    mobile: userData.mobile,
+                    department_id: userData.department_id,
+                    designation: userData.designation,
+                    grade_id: userData.grade_id,
+                    status: userData.status,
+                    doj: userData.doj,
+                    date: userData.data,
+                    time: userData.time,
+                    emp_type: userData.emp_type,
+                    id_issued: userData.id_issued,
+                    id_issued_date: userData.id_issued_date,
+                },
 
-            personal: {
-                id: userData.id,
-                emp_id: userData.emp_id,
-                father_name: userData.father_name,
-                mother_name: userData.mother_name,
-                gender: userData.gender,
-                dob: userData.dob,
-                alt_mobile_no: userData.alt_mobile_no,
-                religion: userData.religion,
-                spouse_name: userData.spouse_name,
-                blood_group: userData.blood_group,
-                pf_no: userData.pf_no,
-                esi_no: userData.esi_no,
-                current_city: userData.current_city,
-                current_address: userData.current_address,
-                current_district: userData.current_district,
-                current_pincode: userData.current_pincode,
-                current_state: userData.current_state,
-                current_country: userData.current_country,
-                permanent_address: userData.permanent_address,
-                permanent_city: userData.permanent_city,
-                permanent_address: userData.permanent_address,
-                permanent_district: userData.permanent_district,
-                permanent_pincode: userData.permanent_pincode,
-                permanent_state: userData.permanent_state,
-                permanent_country: userData.permanent_country,
-                aadhar_no: userData.aadhar_no,
-                pan_no: userData.pan_no,
-            },
+                personal: {
+                    id: userData.id,
+                    emp_id: userData.emp_id,
+                    father_name: userData.father_name,
+                    mother_name: userData.mother_name,
+                    gender: userData.gender,
+                    dob: userData.dob,
+                    alt_mobile_no: userData.alt_mobile_no,
+                    religion: userData.religion,
+                    spouse_name: userData.spouse_name,
+                    blood_group: userData.blood_group,
+                    pf_no: userData.pf_no,
+                    esi_no: userData.esi_no,
+                    current_city: userData.current_city,
+                    current_address: userData.current_address,
+                    current_district: userData.current_district,
+                    current_pincode: userData.current_pincode,
+                    current_state: userData.current_state,
+                    current_country: userData.current_country,
+                    permanent_address: userData.permanent_address,
+                    permanent_city: userData.permanent_city,
+                    permanent_address: userData.permanent_address,
+                    permanent_district: userData.permanent_district,
+                    permanent_pincode: userData.permanent_pincode,
+                    permanent_state: userData.permanent_state,
+                    permanent_country: userData.permanent_country,
+                    aadhar_no: userData.aadhar_no,
+                    pan_no: userData.pan_no,
+                },
 
-            document: {
-                aadhar_back_doc: userData.aadhar_back_doc,
-                aadhar_front_doc: userData.aadhar_front_doc,
-                pan_doc: userData.pan_doc,
-                voter_doc: userData.voter_doc,
-                resume_doc: userData.resume_doc,
-                board_doc: userData.board_doc,
-                intermediate_doc: userData.intermediate_doc,
-                degree_doc: userData.degree_doc,
-                pg_degree_doc: userData.pg_degree_doc,
-                certificate_doc: userData.certificate_doc,
-                passport_photo: userData.passport_photo,
-                profile_img: userData.profile_img,
-            },
+                document: {
+                    aadhar_back_doc: userData.aadhar_back_doc,
+                    aadhar_front_doc: userData.aadhar_front_doc,
+                    pan_doc: userData.pan_doc,
+                    voter_doc: userData.voter_doc,
+                    resume_doc: userData.resume_doc,
+                    board_doc: userData.board_doc,
+                    intermediate_doc: userData.intermediate_doc,
+                    degree_doc: userData.degree_doc,
+                    pg_degree_doc: userData.pg_degree_doc,
+                    certificate_doc: userData.certificate_doc,
+                    passport_photo: userData.passport_photo,
+                    profile_img: userData.profile_img,
+                },
 
-            bankinfo: {
-                id: userData.id,
-                emp_id: userData.emp_id,
-                account_number: userData.account_number,
-                ifsc_code: userData.ifsc_code,
-                address: userData.address
-            },
+                bankinfo: {
+                    id: userData.id,
+                    emp_id: userData.emp_id,
+                    account_number: userData.account_number,
+                    ifsc_code: userData.ifsc_code,
+                    address: userData.address
+                },
+            };
+            res.json({ statusCode: 1, message: "Profile found", data: output })
         };
-        res.json({ statusCode: 1, message: "Profile found", data: output })
-    };
+    } catch (error) {
+        console.log("Error in uploading aadhaar back in db", error);
+        return res.status(500).json({ statusCode: 0, message: "Error in uploading aadhaar back in db" });
+    }
+
 });
 
 
@@ -711,6 +716,7 @@ router.post('/uploadpayslip2', whetherPrejoineeLogin, upload.single("payslip2"),
 router.post('/insertbasicdetails', whetherPrejoineeLogin, async (req, res) => {
     var { ref_name1, designation1, company1, phone1, email1, ref_name2, designation2, company2, phone2, email2 } = req.body
     const preJoineeMail = req.prejoinee.email;
+  
     try {
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(preJoineeMail);
         if (checkPrejoinee.length !== 0) {

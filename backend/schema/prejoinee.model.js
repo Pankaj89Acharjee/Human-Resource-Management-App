@@ -1,8 +1,6 @@
 const db = require('../utils/db');
 require('dotenv').config();
-const moment = require('moment-timezone');
-moment().tz("Asia/Calcutta").format();
-process.env.TZ = 'Asia/Calcutta';
+const BASE_URL = process.env.BASE_URL;
 
 //For getting user Login
 const getAdminUserLogin = async (email, password) => {
@@ -536,8 +534,8 @@ const getPreJoineeProfile = async (email) => {
     var conn = null
     try {
         conn = await db.connection();
-        const resp = await conn.query('SELECT t1.*, t2.*, t3.* FROM employee t1 JOIN emp_profile_info t2 ON t1.prejoining_emp_id = t2.emp_id JOIN bank_info t3 ON t1.prejoining_emp_id = t3.emp_id WHERE t1.email = ?', [email]);
-        conn.release();
+        const resp = await conn.query(`SELECT t1.*, t2.*, CONCAT ("${BASE_URL}uploads/employee/", t2.aadhar_back_doc) aadhar_back_doc, CONCAT ("${BASE_URL}uploads/employee/", t2.aadhar_front_doc) aadhar_front_doc, CONCAT ("${BASE_URL}uploads/employee/", t2.board_doc) board_doc, CONCAT ("${BASE_URL}uploads/employee/", t2.certificate_doc) certificate_doc, CONCAT ("${BASE_URL}uploads/employee/", t2.degree_doc) degree_doc, CONCAT ("${BASE_URL}uploads/employee/", t2.intermediate_doc) intermediate_doc, CONCAT ("${BASE_URL}uploads/employee/", t2.pan_doc) pan_doc, CONCAT ("${BASE_URL}uploads/employee/", t2.passport_photo) passport_photo, CONCAT ("${BASE_URL}uploads/employee/", t2.pg_degree_doc) pg_degree_doc, CONCAT ("${BASE_URL}uploads/employee/", t2.profile_img) profile_img, CONCAT ("${BASE_URL}uploads/employee/", t2.resume_doc) resume_doc, CONCAT ("${BASE_URL}uploads/employee/", t2.voter_doc) voter_doc, t3.* FROM employee t1 JOIN emp_profile_info t2 ON t1.prejoining_emp_id = t2.emp_id JOIN bank_info t3 ON t1.prejoining_emp_id = t3.emp_id WHERE t1.email = ?`, [email]);
+       
         return resp[0]
     }
     catch (error) {
