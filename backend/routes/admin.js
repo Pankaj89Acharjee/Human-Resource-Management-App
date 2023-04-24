@@ -14,7 +14,6 @@ router.use(cors());
 
 const whetherAdminLogin = require('../middleware/whetherAdminLogin');
 
-const AdminModel = require('../schema/adminUser.model');
 const PreJoineeModel = require('../schema/prejoinee.model');
 const EmployeeModel = require('../schema/employee.model');
 const DeptModel = require('../schema/departments.model');
@@ -36,7 +35,7 @@ const PSALTKEY = process.env.PSALTKEY
 router.get('/admin-list', whetherAdminLogin, async (req, res) => {
     let { emp_type } = req.admin;
     try {
-        const fetchAllAdmins = await AdminModel.fetchAllAdminData(emp_type);
+        const fetchAllAdmins = await EmployeeModel.fetchAllAdminData(emp_type);
         if (fetchAllAdmins.statuscode === 0) {
             return res.status(500).json({ statuscode: 0, message: fetchAllAdmins.message, error: fetchAllAdmins.error })
         } else if (fetchAllAdmins.length === 0) {
@@ -54,7 +53,7 @@ router.get('/admin-list', whetherAdminLogin, async (req, res) => {
 //For Viewing All Admins' Data in short form
 router.get('/profiles', whetherAdminLogin, async (req, res) => {
     try {
-        const fetchAllAdmins = await AdminModel.fetchAllAdminPreciseData();
+        const fetchAllAdmins = await EmployeeModel.fetchAllAdminPreciseData();
         if (fetchAllAdmins.statuscode === 0) {
             return res.status(500).json({ statuscode: 0, message: fetchAllAdmins.message, error: fetchAllAdmins.error })
         } else if (fetchAllAdmins.length === 0) {
@@ -73,7 +72,7 @@ router.get('/profiles', whetherAdminLogin, async (req, res) => {
 router.get('/adminprofileview', whetherAdminLogin, async (req, res) => {
     let { email } = req.admin;
     try {
-        const fetchAdminData = await AdminModel.getAdminProfile(email);
+        const fetchAdminData = await EmployeeModel.getAdminProfile(email);
         if (fetchAdminData.statuscode === 0) {
             console.log("Error in fetching Admin profile details")
             return res.status(500).json({ statuscode: 0, message: fetchAdminData.message, error: fetchAdminData.error })

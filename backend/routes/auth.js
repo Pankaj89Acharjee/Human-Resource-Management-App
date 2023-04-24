@@ -7,7 +7,7 @@ const whetherAdmin = require('../middleware/whetherAdminLogin');
 const requireAdminLogin = require('../middleware/requireAdminLogin');
 const whetherPrejoineeLogin = require('../middleware/whetherPrejoineeLogin');
 
-const AdminUserModel = require('../schema/adminUser.model');
+const EmployeeModel = require('../schema/employee.model');
 const PrejoineeModel = require('../schema/prejoinee.model');
 
 const otpVerificationEmail = require('../mailing/otpVerifyMail');
@@ -34,7 +34,7 @@ router.post('/admin-login', async (req, res) => {
     let concatPassword = PSALTKEY.concat(password)
     let hashedPassword = sha1(concatPassword)
     try {
-        const userLogin = await AdminUserModel.getAdminUserLogin(email, hashedPassword)
+        const userLogin = await EmployeeModel.getAdminUserLogin(email, hashedPassword)
         var userData = userLogin[0]
 
         if (userData?.emp_type === "ADMIN" || userData?.emp_type === "HR") {
@@ -44,18 +44,18 @@ router.post('/admin-login', async (req, res) => {
                 let saltedOTP = SALTKEY.concat(otp)
                 let hashedOTP = sha1(saltedOTP)
                 let timestamp = moment().format('DD MMM YYYY, hh:mm:ss A');
-                const otpUpdate = await AdminUserModel.updateAdminUserOtp(hashedOTP, timestamp, email)
+                const otpUpdate = await EmployeeModel.updateAdminUserOtp(hashedOTP, timestamp, email)
                 if (otpUpdate.affectedRows) {
                     //Sending OTP to mail
                     var originalName = email.split("@")[0];
                     var receiverEmail = email;
                     var emailSubject = "OTP For Login To HRMS Portal"
                     var emailContent = { OTP: otp, UserEmail: email }
-                    await otpVerificationEmail(receiverEmail, emailSubject, emailContent, originalName)
+                    otpVerificationEmail(receiverEmail, emailSubject, emailContent, originalName)
 
                     //OTP valid for 5 min
                     setTimeout(async () => {
-                        await AdminUserModel.deleteOTPFromDB(email)
+                        await EmployeeModel.deleteOTPFromDB(email)
                     }, 300000)
                     let info = {
                         statuscode: 1,
@@ -86,14 +86,13 @@ router.post('/admin-verifyemailotp', async (req, res) => {
     let concatPassword = PSALTKEY.concat(password)
     let hashedPassword = sha1(concatPassword)
     try {
-        const fetchUserData = await AdminUserModel.getAdminUserLogin(email, hashedPassword)
+        const fetchUserData = await EmployeeModel.getAdminUserLogin(email, hashedPassword)
         let userData = fetchUserData[0]
         if (!userData || userData === undefined) {
             return res.status(403).json({ statuscode: 0, message: "Invalid UserName or Password" })
+        } else if (userData.status === 0) {
+            return res.status(403).json({ statuscode: 0, message: "This user is not active" })
         } else {
-            if (userData.status !== 1) {
-                return res.status(403).json({ statuscode: 0, message: "This user is not active" })
-            }
             let saltedOTP = SALTKEY.concat(otp)
             let hashedOTP = sha1(saltedOTP)
             if (userData.otp === hashedOTP) {
@@ -127,7 +126,7 @@ router.post('/admin-verifyemailotp', async (req, res) => {
 router.post('/admin-sendotp', async (req, res) => {
     let { email } = req.body
     try {
-        const fetchUserData = await AdminUserModel.getAdmin(email)
+        const fetchUserData = await EmployeeModel.getAdmin(email)
         var userData = fetchUserData[0]
         let otp = 111111;
         // let otp = Math.floor(Math.random() * 900000) + 100000;
@@ -142,25 +141,21 @@ router.post('/admin-sendotp', async (req, res) => {
             var receiverEmail = email;
             var emailSubject = "OTP For Login To HRMS Portal"
             var emailContent = { OTP: otp, UserEmail: email }
-            const sendOtpEmail = await otpVerificationEmail(receiverEmail, emailSubject, emailContent, originalName)
-            if (sendOtpEmail) {
-                //****OTP valid for 2 min***
-                setTimeout(async () => {
-                    await AdminUserModel.deleteOTPFromDB(email)
-                }, 120000);
+            otpVerificationEmail(receiverEmail, emailSubject, emailContent, originalName)
+            //****OTP valid for 2 min***
+            setTimeout(async () => {
+                await EmployeeModel.deleteOTPFromDB(email)
+            }, 120000);
 
-                const updateOtp = await AdminUserModel.updateAdminUserOtp(hashedOTP, timestamp, email);
-                if (updateOtp.affectedRows) {
-                    let info = {
-                        statuscode: 1,
-                        message: "otp send successfully",
-                    }
-                    res.status(200).json(info)
-                } else {
-                    return res.status(500).json({ statuscode: 0, message: "Error in updating db with otp" })
+            const updateOtp = await EmployeeModel.updateAdminUserOtp(hashedOTP, timestamp, email);
+            if (updateOtp.affectedRows) {
+                let info = {
+                    statuscode: 1,
+                    message: "otp send successfully",
                 }
+                res.status(200).json(info)
             } else {
-                return res.status(500).json({ statuscode: 0, message: "Error in mail server to send otp" })
+                return res.status(500).json({ statuscode: 0, message: "Error in updating db with otp" })
             }
         } else {
             return res.status(400).json({ statuscode: 0, message: "Invalid email address" })
@@ -184,9 +179,9 @@ router.post('/admin-resetpassword', async (req, res) => {
         return res.status(400).json({ statuscode: 0, message: "otp Should not be blank" })
     }
     try {
-        const fetchUserData = await AdminUserModel.getAdmin(email)
-        if (fetchUserData[0] !== undefined || fetchUserData[0].length !== 0) {
-            var userData = fetchUserData[0]
+        const fetchUserData = await EmployeeModel.getAdmin(email)
+        if (fetchUserData) {
+            var userData = fetchUserData[0]           
             let saltedOTP = SALTKEY.concat(otp)
             let hashedOTP = sha1(saltedOTP)
 
@@ -201,15 +196,20 @@ router.post('/admin-resetpassword', async (req, res) => {
                 let concatPassword = PSALTKEY.concat(password)
                 let hashedPassword = sha1(concatPassword)
 
+                console.log("Password and confirm password", password, confirmpassword)
                 if (password === confirmpassword) {
-                    const updatePassword = await AdminUserModel.updatePassword(email, hashedPassword)
-                    if (updatePassword.statuscode === 1 && updatePassword.affectedRows) {
+                    const updatePassword = await EmployeeModel.updatePassword(email, hashedPassword)
+                    if (updatePassword.affectedRows) {
                         console.log(updatePassword.message);
                         let info = {
                             statuscode: 1,
                             message: updatePassword.message
                         }
+                        console.log("Password changed!")
                         res.json(info)
+                    } else {
+                        console.log("Password is unable to update in database")
+                        return res.status(500).json({ statuscode: 0, message: "Password is unable to update in database" })
                     }
                 } else {
                     return res.status(400).json({ statuscode: 0, message: "Password doesn't match" })
@@ -239,7 +239,7 @@ router.post('/prejoinee-login', async (req, res) => {
     let concatPassword = PSALTKEY.concat(password)
     let hashedPassword = sha1(concatPassword)
     try {
-        const userLogin = await AdminUserModel.getAdminUserLogin(email, hashedPassword)
+        const userLogin = await EmployeeModel.getAdminUserLogin(email, hashedPassword)
         var userData = userLogin[0]
 
         if (userData?.emp_type === "EMP" || userData?.emp_type === "HR" || userData?.emp_type === "ACCOUNTS") {
@@ -249,7 +249,7 @@ router.post('/prejoinee-login', async (req, res) => {
                 let saltedOTP = SALTKEY.concat(otp)
                 let hashedOTP = sha1(saltedOTP)
                 let timestamp = moment().format('DD MMM YYYY, hh:mm:ss A');
-                const otpUpdate = await AdminUserModel.updateAdminUserOtp(hashedOTP, timestamp, email)
+                const otpUpdate = await EmployeeModel.updateAdminUserOtp(hashedOTP, timestamp, email)
                 if (otpUpdate.affectedRows) {
                     //Sending OTP to mail
                     var originalName = email.split("@")[0];
@@ -260,7 +260,7 @@ router.post('/prejoinee-login', async (req, res) => {
 
                     //OTP valid for 5 min
                     setTimeout(async () => {
-                        await AdminUserModel.deleteOTPFromDB(email)
+                        await EmployeeModel.deleteOTPFromDB(email)
                     }, 300000)
                     let info = {
                         statuscode: 1,
@@ -291,7 +291,7 @@ router.post('/prejoinee-verifyemailotp', async (req, res) => {
     let concatPassword = PSALTKEY.concat(password)
     let hashedPassword = sha1(concatPassword)
     try {
-        const fetchUserData = await AdminUserModel.getAdminUserLogin(email, hashedPassword)
+        const fetchUserData = await EmployeeModel.getAdminUserLogin(email, hashedPassword)
         let userData = fetchUserData[0]
         if (!userData || userData === undefined) {
             return res.status(403).json({ statuscode: 0, message: "Invalid UserName or Password" })
@@ -332,7 +332,7 @@ router.post('/prejoinee-verifyemailotp', async (req, res) => {
 router.post('/prejoinee-sendotp', async (req, res) => {
     let { email } = req.body
     try {
-        const fetchUserData = await AdminUserModel.getAdmin(email)
+        const fetchUserData = await EmployeeModel.getAdmin(email)
         var userData = fetchUserData[0]
         let otp = 111111;
         // let otp = Math.floor(Math.random() * 900000) + 100000;
@@ -351,10 +351,10 @@ router.post('/prejoinee-sendotp', async (req, res) => {
             if (sendOtpEmail) {
                 //****OTP valid for 2 min***
                 setTimeout(async () => {
-                    await AdminUserModel.deleteOTPFromDB(email)
+                    await EmployeeModel.deleteOTPFromDB(email)
                 }, 120000);
 
-                const updateOtp = await AdminUserModel.updateAdminUserOtp(hashedOTP, timestamp, email);
+                const updateOtp = await EmployeeModel.updateAdminUserOtp(hashedOTP, timestamp, email);
                 if (updateOtp.affectedRows) {
                     let info = {
                         statuscode: 1,
@@ -390,7 +390,7 @@ router.post('/prejoinee-resetpassword', async (req, res) => {
         return res.status(400).json({ statuscode: 0, message: "otp Should not be blank" })
     }
     try {
-        const fetchUserData = await AdminUserModel.getAdmin(email)
+        const fetchUserData = await EmployeeModel.getAdmin(email)
         if (fetchUserData[0] !== undefined || fetchUserData[0].length !== 0) {
             var userData = fetchUserData[0]
             let saltedOTP = SALTKEY.concat(otp)
@@ -408,7 +408,7 @@ router.post('/prejoinee-resetpassword', async (req, res) => {
                 let hashedPassword = sha1(concatPassword)
 
                 if (password === confirmpassword) {
-                    const updatePassword = await AdminUserModel.updatePassword(email, hashedPassword)
+                    const updatePassword = await EmployeeModel.updatePassword(email, hashedPassword)
                     if (updatePassword.statuscode === 1 && updatePassword.affectedRows) {
                         console.log(updatePassword.message);
                         let info = {

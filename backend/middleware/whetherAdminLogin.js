@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const AdminModel = require('../schema/adminUser.model');
+const EmployeeModel = require('../schema/employee.model');
 const JWT_KEYS = process.env.JWT_KEYS
 
 module.exports = (req, res, next) => {
@@ -33,7 +33,7 @@ module.exports = (req, res, next) => {
 }
 const fetchAdminData = async (id) => {
     try {
-        const userDetails = await AdminModel.getAdmin(id);
+        const userDetails = await EmployeeModel.getAdmin(id);
         var savedData = userDetails[0]        
         return savedData
     } catch (error) {
