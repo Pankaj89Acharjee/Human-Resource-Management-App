@@ -12,7 +12,7 @@ const getAdminUserLogin = async (email, password) => {
         return resp[0];
     } catch (error) {
         console.log('Error in getting User details ', error)
-        return { connection: false, statuscode: 0, message: "Error in getting Users", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in getting Users", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -34,7 +34,7 @@ const fetchPrejoineeById = async (id) => {
         return resp[0];
     } catch (error) {
         console.log("Error in fetching prejoinee", error);
-        return { connection: false, statuscode: 0, message: "Error in fetching prejoinee", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching prejoinee", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -57,7 +57,7 @@ const addNewPrejoinee = async (userName, password, email, status) => {
         if (email == executionResult[0]?.email) {
             conn.release();
             console.log("User already exists");
-            return ({ statuscode: 2, message: "User already exists" })
+            return ({ statusCode: 2, message: "User already exists" })
         } else {
             //Status 1 for Approved, Status 0 for Awaiting, Status 2 for Active
             if (status == 1) {
@@ -74,7 +74,7 @@ const addNewPrejoinee = async (userName, password, email, status) => {
         }
     } catch (error) {
         console.log("Error in inserting new prejoinee", error);
-        return { connection: false, statuscode: 0, message: "Error in inserting new prejoinee", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in inserting new prejoinee", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -97,7 +97,7 @@ const getAllPrejoinee = async () => {
         return resp[0];
     } catch (error) {
         console.log("Error in fetching all prejoinees", error);
-        return { connection: false, statuscode: 0, message: "Error in fetching all prejoinees", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching all prejoinees", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -121,7 +121,7 @@ const getPreJoineeData = async (email) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -144,7 +144,7 @@ const insertPreJoineeData = async (prejoineeId, ref_name1, designation1, company
         if (prejoineeId == executionResult[0]?.prejoining_emp_id) {
             conn.release();
             console.log("User already exists");
-            return ({ statuscode: 2, message: "User Already exists" })
+            return ({ statusCode: 2, message: "User Already exists" })
         } else {
             const resp = await conn.query('INSERT INTO prejoining_emp_profile_info (prejoining_emp_id, ref_name1, designation1, company1, phone1, email1, ref_name2, designation2, company2, phone2, email2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [prejoineeId, ref_name1, designation1, company1, phone1, email1, ref_name2, designation2, company2, phone2, email2]);
             conn.release();
@@ -153,7 +153,7 @@ const insertPreJoineeData = async (prejoineeId, ref_name1, designation1, company
     }
     catch (error) {
         console.log('Error in inserting data', error)
-        return { connection: false, statuscode: 0, message: "Error in inserting data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in inserting data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -177,7 +177,7 @@ const uploadAahdaarBack = async (adhaarback, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in updating', error)
-        return { connection: false, statuscode: 0, message: "Error in updating", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in updating", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -200,7 +200,7 @@ const uploadAahdaarfront = async (adhaarfront, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -222,7 +222,7 @@ const uploadPanCard = async (pancard, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -244,7 +244,7 @@ const uploadVoterCard = async (votercard, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -266,7 +266,7 @@ const uploadResume = async (votercard, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -288,7 +288,7 @@ const uploadBoardDoc = async (boarddoc, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -311,7 +311,7 @@ const uploadIntermediateDoc = async (intermediatedoc, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -333,7 +333,7 @@ const uploadDegreeDoc = async (degreedoc, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -356,7 +356,7 @@ const uploadPGDegreeDoc = async (pgdegreedoc, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -379,7 +379,7 @@ const uploadCertificateDoc = async (certificatedoc, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -402,7 +402,7 @@ const uploadPassportPhoto = async (passportphoto, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -425,7 +425,7 @@ const uploadPayslip = async (payslip1, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -448,7 +448,7 @@ const uploadPayslip2 = async (payslip2, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -470,7 +470,7 @@ const uploadPayslip3 = async (payslip3, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -493,7 +493,7 @@ const uploadBankStatement = async (bankdoc, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -516,7 +516,7 @@ const uploadReleaseLetter = async (releasedoc, prejoineeId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -540,7 +540,7 @@ const getPreJoineeProfile = async (email) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -564,7 +564,7 @@ const updateAdminUserOtp = async (otp, otp_time, email) => {
     }
     catch (error) {
         console.log('Error in select employee table', error)
-        return { connection: false, statuscode: 0, message: "Error in Employee table", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in Employee table", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -587,7 +587,7 @@ const getPrejoineeById = async (id) => {
         return resp[0];
     } catch (error) {
         console.log("Error in fetching all data of prejoinee", error);
-        return { connection: false, statuscode: 0, message: "Error in fetching all data of prejoinee", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching all data of prejoinee", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -610,7 +610,7 @@ const checkPreJoineeStatusById = async (id) => {
         return resp[0];
     } catch (error) {
         console.log("Error in finding status of the prejoinee", error);
-        return { connection: false, statuscode: 0, message: "Error in finding status of the prejoinee", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in finding status of the prejoinee", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -633,7 +633,7 @@ const updatePrejoineeStatus = async (id) => {
         return resp[0];
     } catch (error) {
         console.log("Error to update status of the prejoinee", error);
-        return { connection: false, statuscode: 0, message: "Error to update status of the prejoinee", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error to update status of the prejoinee", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -656,7 +656,7 @@ const rejectPrejoineeStatus = async (id) => {
         return resp[0];
     } catch (error) {
         console.log("Error to update status of the prejoinee", error);
-        return { connection: false, statuscode: 0, message: "Error to update status of the prejoinee", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error to update status of the prejoinee", error: error.message }
     } finally {
         try {
             if (conn !== null) {

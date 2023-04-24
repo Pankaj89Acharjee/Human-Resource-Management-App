@@ -147,9 +147,9 @@ router.post('/uploadAadhaarBack', whetherPrejoineeLogin, upload.single("aadhaarb
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -181,9 +181,9 @@ router.post('/uploadAadhaarFront', whetherPrejoineeLogin, upload.single("aadhaar
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -217,9 +217,9 @@ router.post('/uploadpan', whetherPrejoineeLogin, upload.single("pancard"), async
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -253,9 +253,9 @@ router.post('/uploadvotercard', whetherPrejoineeLogin, upload.single("votercard"
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -290,9 +290,9 @@ router.post('/uploadresume', whetherPrejoineeLogin, upload.single("resume"), asy
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -326,9 +326,9 @@ router.post('/uploadreleaseletter', whetherPrejoineeLogin, upload.single("releas
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -363,9 +363,9 @@ router.post('/uploadbankdoc', whetherPrejoineeLogin, upload.single("bank"), asyn
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -399,9 +399,9 @@ router.post('/uploadintermediate', whetherPrejoineeLogin, upload.single("interme
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -435,9 +435,9 @@ router.post('/uploadboarddoc', whetherPrejoineeLogin, upload.single("boarddoc"),
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -472,9 +472,9 @@ router.post('/uploaddegree', whetherPrejoineeLogin, upload.single("degree"), asy
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -506,9 +506,9 @@ router.post('/uploadpgdegree', whetherPrejoineeLogin, upload.single("pgdegree"),
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -541,9 +541,9 @@ router.post('/uploadcertificate', whetherPrejoineeLogin, upload.single("certific
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -576,9 +576,9 @@ router.post('/uploadpayslip', whetherPrejoineeLogin, upload.single("payslip"), a
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -613,9 +613,9 @@ router.post('/uploadphoto', whetherPrejoineeLogin, upload.single("passport"), as
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'file size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'file size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -648,9 +648,9 @@ router.post('/uploadpayslip3', whetherPrejoineeLogin, upload.single("payslip3"),
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'File size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'File size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {
@@ -684,9 +684,9 @@ router.post('/uploadpayslip2', whetherPrejoineeLogin, upload.single("payslip2"),
     let { email } = req.prejoinee;
     try {
         if (selectedFile === "wrongType") {
-            return res.status(422).json({ statuscode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
+            return res.status(422).json({ statusCode: 0, message: 'Please select jpg, png, jpeg or pdf format only' });
         } else if (req.file?.size > 20000000) {
-            return res.status(422).json({ statuscode: 0, message: 'File size is too large, allowed 20MB' });
+            return res.status(422).json({ statusCode: 0, message: 'File size is too large, allowed 20MB' });
         }
         const checkPrejoinee = await PrejoineeModel.getPreJoineeData(email)
         if (checkPrejoinee.length !== 0) {

@@ -14,7 +14,7 @@ const fetchGradeList = async () => {
         return resp[0];
     } catch (error) {
         console.log("Error in finding all the assets", error);
-        return { connection: false, statuscode: 0, message: "Error in finding all the assets", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in finding all the assets", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -37,7 +37,7 @@ const createNewGrade = async (grade, status) => {
         return resp[0];
     } catch (error) {
         console.log("Error in finding all the assets", error);
-        return { connection: false, statuscode: 0, message: "Error in finding all the assets", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in finding all the assets", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -60,7 +60,7 @@ const updateGrade = async (grade, status, gradeId) => {
         return resp[0];
     } catch (error) {
         console.log("Error in finding all the assets", error);
-        return { connection: false, statuscode: 0, message: "Error in finding all the assets", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in finding all the assets", error: error.message }
     } finally {
         if (conn !== null) {
             try {

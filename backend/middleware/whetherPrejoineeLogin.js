@@ -7,20 +7,20 @@ const JWT_KEYS = process.env.JWT_KEYS
 module.exports = (req, res, next) => {
     const { authorization } = req.headers
     if (!authorization) {
-        return res.status(400).json({ statuscode: 2, message: "No Token" })
+        return res.status(400).json({ statusCode: 2, message: "No Token" })
     }
     const token = authorization.replace("Bearer ", "")
     try {
         jwt.verify(token, JWT_KEYS, (err, payload) => {
             if (err) {
-                return res.status(400).json({ statuscode: 2, message: "Invalid Token" })
+                return res.status(400).json({ statusCode: 2, message: "Invalid Token" })
             }
             if (!payload) {
-                return res.status(400).json({ statuscode: 2, message: "Token Expired, login again" })
+                return res.status(400).json({ statusCode: 2, message: "Token Expired, login again" })
             }
             fetchAdminData(payload.email)
                 .then(function (dataa) {
-                    if (req.prejoinee === null) { return res.status(500).json({ statuscode: 2, message: "Internal Server Error" }) }
+                    if (req.prejoinee === null) { return res.status(500).json({ statusCode: 2, message: "Internal Server Error" }) }
                     req.prejoinee = dataa
                     next()
                 }
@@ -28,7 +28,7 @@ module.exports = (req, res, next) => {
         });
     } catch (error) {
         console.log('Error in Prejoinee Middleware', error)
-        res.status(500).json({ statuscode: 2, message: "Internal Server Error" })
+        res.status(500).json({ statusCode: 2, message: "Internal Server Error" })
     }
 }
 const fetchAdminData = async (id) => {

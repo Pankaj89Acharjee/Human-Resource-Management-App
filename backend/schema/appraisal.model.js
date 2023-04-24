@@ -10,7 +10,7 @@ const getAppraisal = async (id) => {
     }
     catch (error) {
         console.log('Error in select mast_user table', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         conn.destroy();
     }
