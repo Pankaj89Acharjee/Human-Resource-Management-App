@@ -27,9 +27,9 @@ const otpVerificationEmail = (receiverEmail, emailSubject, emailContent, origina
     transporter.sendMail(mailContent, function(error, info){
         if (error) {
             console.log('Error in sending verification mail ::', error);
-            return false
+            return "Error in sending verification mail"
         } else {
-            console.log('Verification Email sent: ' + JSON.stringify(info, null, 2));
+            //console.log('Verification Email sent: ' + JSON.stringify(info, null, 2));
             return true
         }
     });

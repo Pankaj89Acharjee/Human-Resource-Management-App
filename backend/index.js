@@ -5,7 +5,7 @@ const moment = require('moment-timezone');
 const app = express()
 const PORT = process.env.PORT || 7060;
 
-const UserRoutes = require('./routes/user')
+//const UserRoutes = require('./routes/user')
 const AuthRoutes = require('./routes/auth')
 const AdminRoutes = require('./routes/admin')
 const PreJoineeRoutes = require('./routes/prejoinee')
@@ -14,7 +14,7 @@ const PreJoineeRoutes = require('./routes/prejoinee')
 
 
 app.use('/api/auth', AuthRoutes)
-app.use('/api/user', UserRoutes)
+//app.use('/api/user', UserRoutes)
 app.use('/api/admin', AdminRoutes)
 app.use('/api/prejoinee', PreJoineeRoutes)
 //app.use('/api/home', HomeRoutes)

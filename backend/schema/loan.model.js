@@ -5,70 +5,6 @@ moment().tz("Asia/Calcutta").format();
 process.env.TZ = 'Asia/Calcutta';
 const BASE_URL = process.env.BASE_URL;
 
-const getEmpLoan = async (id) => {
-    var conn = null
-    try {
-        conn = await db.connection();
-        const resp = await conn.query('SELECT * FROM loan_master WHERE resource_id = ? ORDER BY id DESC', [id]);
-        conn.release();
-        return resp[0]
-    }
-    catch (error) {
-        console.log('Error in select loan_master table', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
-    } finally {
-        conn.destroy();
-    }
-}
-
-const getAdminLoan = async () => {
-    var conn = null
-    try {
-        conn = await db.connection();
-        const resp = await conn.query('SELECT * FROM loan_master WHERE ORDER BY id DESC');
-        conn.release();
-        return resp[0]
-    }
-    catch (error) {
-        console.log('Error in select loan_master table', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
-    } finally {
-        conn.destroy();
-    }
-}
-const InsertLoan = async (empid, amount, reason) => {
-    var conn = null
-    try {
-        conn = await db.connection();
-        const resp = await conn.query('INSERT into loan_master (resource_id, amount, reason) VALUES (?, ?, ?)', [empid, amount, reason]);
-        conn.release();
-        return resp[0]
-    }
-    catch (error) {
-        console.log('Error in select loan_master table', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
-    } finally {
-        conn.destroy();
-    }
-}
-
-const InsertUploadFile = async (empid, evidencedoc, loandoc, loanpolicydoc) => {
-    var conn = null
-    try {
-        conn = await db.connection();
-        const resp = await conn.query('INSERT into loan_master (resource_id, evedance_doc, loan_doc, loan_policy_doc) VALUES (?, ?, ?)', [empid, evidencedoc, loandoc, loanpolicydoc]);
-        conn.release();
-        return resp[0]
-    }
-    catch (error) {
-        console.log('Error in select loan_master table', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
-    } finally {
-        conn.destroy();
-    }
-}
-
-
 
 //--------------------FOR LOAN SECTION BY ADMIN-----------------------------------
 const viewLoansApplied = async (loanId) => {
@@ -159,4 +95,4 @@ const rejectLoanData = async (loanId, empid, hrNote) => {
 }
 
 
-module.exports = { getEmpLoan, listAppliedLoans, rejectLoanData, AppliedLoans, approveLoanData, getAdminLoan, InsertLoan, viewLoansApplied, InsertUploadFile }
+module.exports = { listAppliedLoans, rejectLoanData, AppliedLoans, approveLoanData, viewLoansApplied }

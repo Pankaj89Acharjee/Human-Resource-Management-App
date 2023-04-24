@@ -16,7 +16,7 @@ const fetchProfileData = async (empid) => {
         return resp[0];
     } catch (error) {
         console.log("Error in fetching profile data", error);
-        return { connection: false, statuscode: 0, message: "Error in fetching profile data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching profile data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -41,7 +41,7 @@ const insertPreJoineeInEmployee = async (preJoineeId, preJoineeName, preJoineePa
         if (prejoineeEmail == executionResult[0]?.email) {
             conn.release();
             console.log("Prejoinee already exists");
-            return ({ statuscode: 2, message: "Prejoinee Already exists" })
+            return ({ statusCode: 2, message: "Prejoinee Already exists" })
         } else {
             conn = await db.connection();
             const resp = await conn.query('INSERT INTO employee (name, email, password, mobile, department_id, designation, grade_id, status, doj, emp_type, id_issued, id_issued_date, date, time, prejoining_emp_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -51,7 +51,7 @@ const insertPreJoineeInEmployee = async (preJoineeId, preJoineeName, preJoineePa
         }
     } catch (error) {
         console.log("Error in inserting new Prejoinee details", error);
-        return { connection: false, statuscode: 0, message: "Error in inserting new prejoinee details", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in inserting new prejoinee details", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -73,7 +73,7 @@ const fetchAllEmployee = async () => {
         return resp[0];
     } catch (error) {
         console.log("Error in fetching all employee details");
-        return { connection: false, statuscode: 0, message: "Error in fetching all employee details", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching all employee details", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -99,7 +99,7 @@ const insertNewEmployee = async (empName, email, password, mobile, deptId, desig
         if (email == executionResult[0]?.email) {
             conn.release();
             console.log("User already exists");
-            return ({ statuscode: 2, message: "User Already exists" })
+            return ({ statusCode: 2, message: "User Already exists" })
         } else {
             const resp = await conn.query('INSERT INTO employee (name, email, password, mobile, department_id, designation, grade_id, status, doj, emp_type, id_issued, id_issued_date, date, time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 [empName, email, password, mobile, deptId, designation, gradeId, "Active", joinDate, empType, idIssued, idIssueDate, presentDate, presentTime]);
@@ -108,7 +108,7 @@ const insertNewEmployee = async (empName, email, password, mobile, deptId, desig
         }
     } catch (error) {
         console.log("Error in inserting new employee details", error);
-        return { connection: false, statuscode: 0, message: "Error in inserting new employee details", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in inserting new employee details", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -133,7 +133,7 @@ const fetchAllAdminData = async (empType) => {
     }
     catch (error) {
         console.log('Error in fetching admin data', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching admin data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching admin data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -156,7 +156,7 @@ const fetchAllAdminPreciseData = async () => {
     }
     catch (error) {
         console.log('Error in fetching admin data', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching admin data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching admin data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -180,7 +180,7 @@ const getAdminProfile = async (email) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -205,7 +205,7 @@ const getAdminUserLogin = async (email, password) => {
         return resp[0];
     } catch (error) {
         console.log('Error in getting User details ', error)
-        return { connection: false, statuscode: 0, message: "Error in getting Users", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in getting Users", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -229,7 +229,7 @@ const updateAdminUserOtp = async (otp, otp_time, email) => {
     }
     catch (error) {
         console.log('Error in select employee table', error)
-        return { connection: false, statuscode: 0, message: "Error in Employee table", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in Employee table", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -251,7 +251,7 @@ const deleteOTPFromDB = async (email) => {
         return resp[0];
     } catch (error) {
         console.log("Error in deleting OTP", error);
-        return { connection: false, statuscode: 0, message: "Error in deleting OTP", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in deleting OTP", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -275,7 +275,7 @@ const getAdmin = async (email) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -293,12 +293,12 @@ const updatePassword = async (email, newPassword) => {
     try {
         conn = await db.connection();
         const resp = await conn.query('UPDATE employee SET password = ? WHERE email = ?', [newPassword, email]);
-        conn.release();
-        return resp[0], { statuscode: 1, message: "Password Updated Successfully" }
+        conn.release();       
+        return resp[0]
     }
     catch (error) {
         console.log('Error in updating with new password', error)
-        return { connection: false, statuscode: 0, message: "Cannot reset password", error: error.message }
+        return { connection: false, statusCode: 0, message: "Cannot reset password", error: error.message }
     } finally {
         try {
             if (conn !== null) {
