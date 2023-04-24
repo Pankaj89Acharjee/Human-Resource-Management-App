@@ -16,7 +16,7 @@ const createNewDepartment = async (departmentName, designation, createdBy) => {
         return resp[0];
     } catch (error) {
         console.log("Error in creation of new department", error);
-        return { connection: false, statuscode: 0, message: "Error in creation of new department", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in creation of new department", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -38,7 +38,7 @@ const getAllDepartments = async () => {
         return resp[0];
     } catch (error) {
         console.log("Error in fetching all departments", error);
-        return { connection: false, statuscode: 0, message: "Error in fetching all departments", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching all departments", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -61,7 +61,7 @@ const listAllDepartments = async () => {
         return resp[0];
     } catch (error) {
         console.log("Error in fetching all departments", error);
-        return { connection: false, statuscode: 0, message: "Error in fetching all departments", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching all departments", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -83,7 +83,7 @@ const checkDepartmentStatusById = async (id) => {
         return resp[0];
     } catch (error) {
         console.log("Error in finding status of the department", error);
-        return { connection: false, statuscode: 0, message: "Error in finding status of the department", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in finding status of the department", error: error.message }
     } finally {
         try {
             if (conn !== null) {
@@ -106,7 +106,7 @@ const updateDepartmentStatus = async (id) => {
         return resp[0];
     } catch (error) {
         console.log("Error to update status of the department", error);
-        return { connection: false, statuscode: 0, message: "Error to update status of the department", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error to update status of the department", error: error.message }
     } finally {
         try {
             if (conn !== null) {

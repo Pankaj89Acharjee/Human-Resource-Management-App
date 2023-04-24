@@ -17,7 +17,7 @@ const viewLoansApplied = async (loanId) => {
     }
     catch (error) {
         console.log('Error in select loan_master table', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         conn.destroy();
     }
@@ -34,7 +34,7 @@ const listAppliedLoans = async () => {
     }
     catch (error) {
         console.log('Error in select loan_master table', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         conn.destroy();
     }
@@ -52,7 +52,7 @@ const AppliedLoans = async (loanId) => {
     }
     catch (error) {
         console.log('Error in select loan_master table', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         conn.destroy();
     }
@@ -69,7 +69,7 @@ const approveLoanData = async (loanId, empid, hrNote) => {
     }
     catch (error) {
         console.log('Error in updating loan table', error)
-        return { connection: false, statuscode: 0, message: "Error in updating loan table", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in updating loan table", error: error.message }
     } finally {
         conn.destroy();
     }
@@ -88,7 +88,7 @@ const rejectLoanData = async (loanId, empid, hrNote) => {
     }
     catch (error) {
         console.log('Error in updating loan table', error)
-        return { connection: false, statuscode: 0, message: "Error in updating loan table", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in updating loan table", error: error.message }
     } finally {
         conn.destroy();
     }
