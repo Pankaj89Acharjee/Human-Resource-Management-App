@@ -17,7 +17,7 @@ const createNewAsset = async (productName, specification, categoryId, total, ins
         return resp[0];
     } catch (error) {
         console.log("Error in insertion", error);
-        return { connection: false, statuscode: 0, message: "Error in insertion", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in insertion", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -40,7 +40,7 @@ const viewAllAssets = async () => {
         return resp[0];
     } catch (error) {
         console.log("Error in finding all the assets", error);
-        return { connection: false, statuscode: 0, message: "Error in finding all the assets", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in finding all the assets", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -65,7 +65,7 @@ const updateAsset = async (name, specification, total, instock, assetId, empId) 
         return resp[0];
     } catch (error) {
         console.log("Error in insertion", error);
-        return { connection: false, statuscode: 0, message: "Error in insertion", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in insertion", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -88,7 +88,7 @@ const createNewAssetCat = async (assetName) => {
         return resp[0];
     } catch (error) {
         console.log("Error in insertion", error);
-        return { connection: false, statuscode: 0, message: "Error in insertion", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in insertion", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -111,7 +111,7 @@ const viewAllAssetCat = async () => {
         return resp[0];
     } catch (error) {
         console.log("Error in finding all the assets", error);
-        return { connection: false, statuscode: 0, message: "Error in finding all the assets", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in finding all the assets", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -135,7 +135,7 @@ const updateAssetCat = async (productName, status, assetId) => {
         return resp[0];
     } catch (error) {
         console.log("Error in updating status", error);
-        return { connection: false, statuscode: 0, message: "Error in updating status", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in updating status", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -161,7 +161,7 @@ const empAssetReqList = async () => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -186,7 +186,7 @@ const empAssetReqView = async (empId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -211,7 +211,7 @@ const empAssetReqDropDown = async (empId) => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -240,14 +240,14 @@ const acceptAssetRequest = async (finalFileName, requestId, hrStatus) => {
             conn.release();
             return resp[0]
         } else if (executeQuery[0[0].issue_status == null]) {
-            return { connection: false, statuscode: 0, error: "Cannot issue asset with NULL value" }
+            return { connection: false, statusCode: 0, error: "Cannot issue asset with NULL value" }
         } else {
-            return { connection: false, statuscode: 0, error: "Asset is already approved" }
+            return { connection: false, statusCode: 0, error: "Asset is already approved" }
         }
     }
     catch (error) {
         console.log('Error in updating', error)
-        return { connection: false, statuscode: 0, message: "Error in updating", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in updating", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -275,12 +275,12 @@ const rejectAssetRequest = async (requestId, hrStatus) => {
             conn.release();
             return resp[0]
         } else {
-            return { connection: false, statuscode: 0, error: "Asset is in approve state, hence cann't reject" }
+            return { connection: false, statusCode: 0, error: "Asset is in approve state, hence cann't reject" }
         }
     }
     catch (error) {
         console.log('Error in updating', error)
-        return { connection: false, statuscode: 0, message: "Error in updating", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in updating", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -307,7 +307,7 @@ const updateInstock = async (asset_id, newInstock, empId) => {
         return resp[0];
     } catch (error) {
         console.log("Error in insertion", error);
-        return { connection: false, statuscode: 0, message: "Error in insertion", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in insertion", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -333,12 +333,12 @@ const updateAssetStatus = async (requestId, hrStatus) => {
             conn.release();
             return resp[0]
         } else {
-            return { connection: false, statuscode: 0, error: "Cannot update returning status" }
+            return { connection: false, statusCode: 0, error: "Cannot update returning status" }
         }
     }
     catch (error) {
         console.log('Error in updating', error)
-        return { connection: false, statuscode: 0, message: "Error in updating", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in updating", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -363,7 +363,7 @@ const fetchAssetsQuantity = async (assetId) => {
     }
     catch (error) {
         console.log('Error in fetching asset data ', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching asset data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching asset data", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -387,7 +387,7 @@ const fetchAllAssets = async () => {
     }
     catch (error) {
         console.log('Error in fetching asset data ', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching asset data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching asset data", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -410,7 +410,7 @@ const fetchAllIssuedAssets = async () => {
     }
     catch (error) {
         console.log('Error in fetching asset data ', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching asset data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching asset data", error: error.message }
     } finally {
         if (conn !== null) {
             try {

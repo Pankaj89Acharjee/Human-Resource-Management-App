@@ -712,7 +712,7 @@ router.post('/uploadpayslip2', whetherPrejoineeLogin, upload.single("payslip2"),
     }
 })
 
-
+//Insert Basic details
 router.post('/insertbasicdetails', whetherPrejoineeLogin, async (req, res) => {
     var { ref_name1, designation1, company1, phone1, email1, ref_name2, designation2, company2, phone2, email2 } = req.body
     const preJoineeMail = req.prejoinee.email;
@@ -747,5 +747,12 @@ router.post('/insertbasicdetails', whetherPrejoineeLogin, async (req, res) => {
     }
 
 })
+
+
+//Update basic details
+
+
+
+
 
 module.exports = router

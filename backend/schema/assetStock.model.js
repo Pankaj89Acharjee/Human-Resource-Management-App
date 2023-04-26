@@ -17,7 +17,7 @@ const fetchAllAssetStock = async () => {
     }
     catch (error) {
         console.log('Error in fetching data from Employee', error)
-        return { connection: false, statuscode: 0, message: "Error in fetching user data", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in fetching user data", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -43,7 +43,7 @@ const insertAssetStockById = async (assetId, empId, totalValue, qty, price) => {
         return resp[0];
     } catch (error) {
         console.log("Error in insertion", error);
-        return { connection: false, statuscode: 0, message: "Error in insertion", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in insertion", error: error.message }
     } finally {
         if (conn !== null) {
             try {
@@ -69,7 +69,7 @@ const updateAssetStock = async (assetId, totalQty, instock, empId) => {
         return resp[0];
     } catch (error) {
         console.log("Error in insertion", error);
-        return { connection: false, statuscode: 0, message: "Error in insertion", error: error.message }
+        return { connection: false, statusCode: 0, message: "Error in insertion", error: error.message }
     } finally {
         if (conn !== null) {
             try {

@@ -312,6 +312,14 @@ router.post('/newemployee', whetherAdminLogin, async (req, res) => {
     }
 })
 
+//Updating existing employee data in employee table
+
+
+//Updating existing employee data in employee table
+
+
+//Insert data into emp_profile_info table only for HR and ADMIN
+
 
 //For adding pre-joinee as an employee after approval
 router.post('/addprejoineeasemployee/:id', whetherAdminLogin, async (req, res) => {
@@ -1247,7 +1255,7 @@ router.post('/viewLoanDetails', whetherAdminLogin, async (req, res) => {
             const fetchLoanData = await LoanModel.viewLoansApplied(loanId);
             if (fetchLoanData.statusCode === 0) {
                 return res.status(500).json({ statusCode: 0, message: fetchLoanData.error })
-            } else if (fetchLoanData.length !== 0 || fetchLoanData !== undefined) {
+            } else if (fetchLoanData.length !== 0 || fetchLoanData[0] !== undefined) {
                 var output = {
                     statusCode: 1,
                     message: "Loan data fetched successfully",
@@ -1392,5 +1400,7 @@ router.post('/rejectLoan', whetherAdminLogin, async (req, res) => {
     }
 })
 
+
+//---Apply for loan by ADMIN / HR [Make this API if required]
 
 module.exports = router
